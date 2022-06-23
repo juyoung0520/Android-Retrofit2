@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Retrofit2</string>
+    <string name="notice">공지사항</string>
+    <string name="tab_all">전체</string>
+    <string name="tab_service">서비스 안내</string>
+    <string name="tab_check">점검 안내</string>
+    <string name="tab_provision">약관 안내</string>
+    <string name="next">다음</string>
+    <string name="previous">이전</string>
+    <string name="empty_notice">다음 페이지가 없습니다.</string>
 </resources>
