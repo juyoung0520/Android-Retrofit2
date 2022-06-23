@@ -13,6 +13,8 @@ object NoticeServiceImpl {
     fun getNotices(mainView: MainView, page: Int) {
         val noticeService = retrofit.create(NoticeService::class.java)
 
+        mainView.onLoading()
+
         noticeService.getNotices(page).enqueue(object : Callback<NoticeDTO> {
             override fun onResponse(call: Call<NoticeDTO>, response: Response<NoticeDTO>) {
                 if (response.isSuccessful) {
@@ -25,6 +27,29 @@ object NoticeServiceImpl {
 
             override fun onFailure(call: Call<NoticeDTO>, t: Throwable) {
                 Log.d("NOTICE/ERROR", t.message.toString())
+                mainView.onGetNoticesFailure()
+            }
+
+        })
+    }
+
+    fun getDetailNotices(mainView: MainView, type: String, page: Int) {
+        val noticeService = retrofit.create(NoticeService::class.java)
+
+        mainView.onLoading()
+
+        noticeService.getDetailNotices(type, page).enqueue(object : Callback<NoticeDTO> {
+            override fun onResponse(call: Call<NoticeDTO>, response: Response<NoticeDTO>) {
+                if (response.isSuccessful) {
+                    val content = response.body()!!.data.content
+                    mainView.onGetNoticesSuccess(mapperToNoticeModel(content))
+                } else {
+                    mainView.onGetNoticesFailure()
+                }
+            }
+
+            override fun onFailure(call: Call<NoticeDTO>, t: Throwable) {
+                Log.d("NOTICE/DETAIl/ERROR", t.message.toString())
                 mainView.onGetNoticesFailure()
             }
 
